@@ -1,0 +1,125 @@
+= Camunda BPM Beginners to Advance
+
+== Links
+
+- https://forum.camunda.org/[Forum Camunda]
+- https://github.com/camunda[Git Camunda]
+- https://github.com/camunda/camunda-bpm-examples[Git Camunda Examples]
+- https://camunda.com/blog[Camunda Blog]
+- https://docs.camunda.org[Camunda Docs]
+- https://emsbach.medium.com/the-best-free-plugins-for-camundas-bpmn-2-modeler-14eee0c9fdd2[The best free Plugins for Camunda’s BPMN 2 Modeler]
+- https://start.camunda.com/[Camunda Spring Initializr]
+- https://docs.camunda.io/docs/components/best-practices/modeling/naming-bpmn-elements/[Naming Conventions]
+- https://demo.bpmn.io/[BPMN IO Web]
+
+== Introduction of BPM
+
+. BPMN stands for Business Process Model and Notation
+. Specification of OMG (Object management Group)
+. Graphical representation for specifying business processes in a business process model
+. Process models describe sequences of business activities from start
+. BPMN helps to graphically visualize business process which can be understood by all business stakeholders
+. BPMN fills the gap among the various type of users, a bridge is always needed when it comes to business process design and implementation
+. Business Analyst responsible for to understand and create the process
+. Technical Developer responsible for implementing them by using some programming language
+. Business Managers they are responsible to monitor the entire business and manage them
+
+== Camunda Introduction
+
+. Camunda BPMN is a implementer of BPMN 2.0 spec
+. Camunda BPMN is a light-weight and open source platform for BPM
+. Camunda is a Java-based framework
+
+== Camunda Ecosystem
+
+.Camunda Ecosystem
+image::thumbs/camunda_ecosystem.png[]
+
+.Camunda Community vs Enterprise Edition
+[cols="1,1,2"]
+|===
+|Edition Comparison |Community |Enterprise
+|Engine,Modeler | Yes | Yes
+|Web Apps: Cockpit, Tasklist, Admin | Yes | Yes
+|Optimize (Reporting, Alerting, Analytics) | No | Yes
+|Contractual Warranty | No | Yes
+|SLA (24x7) | No | Yes
+|Patch release for future | No | Yes
+|Consulting and Training Service | No | Yes
+|===
+
+== BPMN Modeling
+
+- Participants
+. Pool
+. Lane
+
+- Activities
+. Task
+. Subprocess
+. Call Activity
+. Adhoc
+. Event Subprocess
+
+- Gateways
+. Exclusive (XOR)
+. Parallel (AND)
+. Inclusive (OR)
+. Event-based
+
+- Events
+. Message
+. Timer
+. Error
+. Conditional
+. Signal
+. Termination
+. Link
+. Compensation
+. Multiple
+. Parallel
+. Escalation
+
+== Events in Camunda
+
+=== Message start
+
+[source,bash]
+----
+curl http://localhost:8080/engine-rest/message
+----
+
+.Message Start Event Sample used on the Postman message name must combine with, Message name in Camunda modeler
+[source,json]
+----
+{
+    "messageName": "Message_Start",
+    "businessKey": "320",
+    "processVariables": {
+        "question": {
+            "value": "What's a cockpit",
+            "type": "String"
+        }
+    }
+}
+----
+
+=== Signal Interrupting
+
+[source,bash]
+----
+curl http://localhost:8080/engine-rest/signal
+----
+
+.Signal Interrupting
+[source,json]
+----
+{
+    "name": "GoHomeAlert",
+    "variables": {
+        "alertType": {
+            "value": "High"
+        }
+    }
+}
+----

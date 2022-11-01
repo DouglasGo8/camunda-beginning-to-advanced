@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_19gpo7d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:collaboration id="Collaboration_106qpb5">
+    <bpmn:participant id="Participant_03nya3w" name="Order Capt System" processRef="link_event_demo" />
+  </bpmn:collaboration>
+  <bpmn:process id="link_event_demo" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:laneSet id="LaneSet_1f05h9f">
+      <bpmn:lane id="orderDispatch" name="Order Dispatch">
+        <bpmn:flowNodeRef>Event_0rtffki</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0f6srh8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_17h0133</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="orderReceived" name="Order Received">
+        <bpmn:flowNodeRef>Event_0id51wq</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1pi06ey</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1lsm6dm</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Event_0id51wq">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="order_item" label="Enter order item name" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0qgxmck</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0rtffki">
+      <bpmn:incoming>Flow_11cwtip</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="Event_1pi06ey">
+      <bpmn:incoming>Flow_1jma4zw</bpmn:incoming>
+      <bpmn:linkEventDefinition id="LinkEventDefinition_0cr2udm" name="shippingLink" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="Event_0f6srh8">
+      <bpmn:outgoing>Flow_15228vq</bpmn:outgoing>
+      <bpmn:linkEventDefinition id="LinkEventDefinition_1bmnoeo" name="shippingLink" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0qgxmck" sourceRef="Event_0id51wq" targetRef="Activity_1lsm6dm" />
+    <bpmn:sequenceFlow id="Flow_1jma4zw" sourceRef="Activity_1lsm6dm" targetRef="Event_1pi06ey" />
+    <bpmn:sequenceFlow id="Flow_15228vq" sourceRef="Event_0f6srh8" targetRef="Activity_17h0133" />
+    <bpmn:sequenceFlow id="Flow_11cwtip" sourceRef="Activity_17h0133" targetRef="Event_0rtffki" />
+    <bpmn:userTask id="Activity_1lsm6dm" name="Receive order">
+      <bpmn:incoming>Flow_0qgxmck</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jma4zw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_17h0133" name="Ship the order">
+      <bpmn:incoming>Flow_15228vq</bpmn:incoming>
+      <bpmn:outgoing>Flow_11cwtip</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_106qpb5">
+      <bpmndi:BPMNShape id="Participant_03nya3w_di" bpmnElement="Participant_03nya3w" isHorizontal="true">
+        <dc:Bounds x="155" y="77" width="600" height="380" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_03zfv5y_di" bpmnElement="orderReceived" isHorizontal="true">
+        <dc:Bounds x="185" y="77" width="570" height="125" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1rdgful_di" bpmnElement="orderDispatch" isHorizontal="true">
+        <dc:Bounds x="185" y="202" width="570" height="255" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0id51wq_di" bpmnElement="Event_0id51wq">
+        <dc:Bounds x="217" y="129" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rtffki_di" bpmnElement="Event_0rtffki">
+        <dc:Bounds x="457" y="307" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0naogqt_di" bpmnElement="Event_1pi06ey">
+        <dc:Bounds x="457" y="129" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1620rt2_di" bpmnElement="Event_0f6srh8">
+        <dc:Bounds x="217" y="307" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_092pa3r_di" bpmnElement="Activity_1lsm6dm">
+        <dc:Bounds x="305" y="107" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_092jika_di" bpmnElement="Activity_17h0133">
+        <dc:Bounds x="305" y="285" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0qgxmck_di" bpmnElement="Flow_0qgxmck">
+        <di:waypoint x="253" y="147" />
+        <di:waypoint x="305" y="147" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jma4zw_di" bpmnElement="Flow_1jma4zw">
+        <di:waypoint x="405" y="147" />
+        <di:waypoint x="457" y="147" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15228vq_di" bpmnElement="Flow_15228vq">
+        <di:waypoint x="253" y="325" />
+        <di:waypoint x="305" y="325" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11cwtip_di" bpmnElement="Flow_11cwtip">
+        <di:waypoint x="405" y="325" />
+        <di:waypoint x="457" y="325" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_14l7yu5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="Process_0vn6w4y" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Order Initiated">
+      <bpmn:outgoing>Flow_1vh6h6t</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1vh6h6t" sourceRef="StartEvent_1" targetRef="EnterOrderTask" />
+    <bpmn:userTask id="EnterOrderTask" name="Enter Order">
+      <bpmn:extensionElements>
+        <camunda:taskListener class="" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vh6h6t</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ktljvi</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0ktljvi" sourceRef="EnterOrderTask" targetRef="ValidateOrderTask" />
+    <bpmn:serviceTask id="ValidateOrderTask" name="Validate Order">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Input_1gr710j" />
+          <camunda:outputParameter name="Output_2h12pb4" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ktljvi</bpmn:incoming>
+      <bpmn:outgoing>Flow_13krq0i</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0tpvtgq">
+      <bpmn:incoming>Flow_13krq0i</bpmn:incoming>
+      <bpmn:outgoing>Flow_0klbszv</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0v61c81</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_13krq0i" sourceRef="ValidateOrderTask" targetRef="Gateway_0tpvtgq" />
+    <bpmn:task id="ShipTheOrderTask" name="Ship the order">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0klbszv</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nqfc7a</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0klbszv" sourceRef="Gateway_0tpvtgq" targetRef="ShipTheOrderTask" />
+    <bpmn:task id="OrderRejectedTask" name="Order Rejected">
+      <bpmn:incoming>Flow_0v61c81</bpmn:incoming>
+      <bpmn:outgoing>Flow_0couej8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0v61c81" sourceRef="Gateway_0tpvtgq" targetRef="OrderRejectedTask" />
+    <bpmn:endEvent id="Event_1uh8nav">
+      <bpmn:incoming>Flow_0couej8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0couej8" sourceRef="OrderRejectedTask" targetRef="Event_1uh8nav" />
+    <bpmn:endEvent id="Event_1yb7iqo">
+      <bpmn:incoming>Flow_1nqfc7a</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1nqfc7a" sourceRef="ShipTheOrderTask" targetRef="Event_1yb7iqo" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0vn6w4y">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="162" y="142" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02ai81g_di" bpmnElement="EnterOrderTask">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14i658y_di" bpmnElement="ValidateOrderTask">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tpvtgq_di" bpmnElement="Gateway_0tpvtgq" isMarkerVisible="true">
+        <dc:Bounds x="595" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07sj977_di" bpmnElement="ShipTheOrderTask">
+        <dc:Bounds x="710" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06qe4k7_di" bpmnElement="OrderRejectedTask">
+        <dc:Bounds x="710" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uh8nav_di" bpmnElement="Event_1uh8nav">
+        <dc:Bounds x="882" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1yb7iqo_di" bpmnElement="Event_1yb7iqo">
+        <dc:Bounds x="882" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vh6h6t_di" bpmnElement="Flow_1vh6h6t">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ktljvi_di" bpmnElement="Flow_0ktljvi">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13krq0i_di" bpmnElement="Flow_13krq0i">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="595" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0klbszv_di" bpmnElement="Flow_0klbszv">
+        <di:waypoint x="645" y="117" />
+        <di:waypoint x="710" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v61c81_di" bpmnElement="Flow_0v61c81">
+        <di:waypoint x="620" y="142" />
+        <di:waypoint x="620" y="230" />
+        <di:waypoint x="710" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0couej8_di" bpmnElement="Flow_0couej8">
+        <di:waypoint x="810" y="230" />
+        <di:waypoint x="882" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nqfc7a_di" bpmnElement="Flow_1nqfc7a">
+        <di:waypoint x="810" y="117" />
+        <di:waypoint x="882" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
