@@ -5,9 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableProcessApplication("interrupting-events")
-public class CamundaApplication {
-
+@EnableProcessApplication("interruptingEvents")
+public class CamundaApplication  {
   public static void main(String... args) {
     SpringApplication.run(CamundaApplication.class, args);
   }

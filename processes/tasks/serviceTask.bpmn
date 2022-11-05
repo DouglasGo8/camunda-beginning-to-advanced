@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1a2rd8i" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="serviceTask" name="Service Task" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ex8r6m</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ex8r6m" sourceRef="StartEvent_1" targetRef="orderReceive" />
+    <bpmn:sequenceFlow id="Flow_13jh7mf" sourceRef="orderReceive" targetRef="orderValidate" />
+    <bpmn:sequenceFlow id="Flow_0ov9ue4" sourceRef="orderValidate" targetRef="shipOrder" />
+    <bpmn:endEvent id="Event_01i1nzt">
+      <bpmn:incoming>Flow_1kftxta</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1kftxta" sourceRef="shipOrder" targetRef="Event_01i1nzt" />
+    <bpmn:scriptTask id="orderReceive" name="Order Receive" scriptFormat="groovy">
+      <bpmn:incoming>Flow_0ex8r6m</bpmn:incoming>
+      <bpmn:outgoing>Flow_13jh7mf</bpmn:outgoing>
+      <bpmn:script>def orderName = "mobile"
+execution.setVariable("orderName", orderName)</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="orderValidate" name="Order Validate" camunda:class="com.udemy.camunda.bpm.interrupting.service.OrderValidate">
+      <bpmn:incoming>Flow_13jh7mf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ov9ue4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="shipOrder" name="Ship Order" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0ov9ue4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kftxta</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="serviceTask">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01i1nzt_di" bpmnElement="Event_01i1nzt">
+        <dc:Bounds x="752" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1x3on4l_di" bpmnElement="orderReceive">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xhcokd_di" bpmnElement="orderValidate">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11piool_di" bpmnElement="shipOrder">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ex8r6m_di" bpmnElement="Flow_0ex8r6m">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13jh7mf_di" bpmnElement="Flow_13jh7mf">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ov9ue4_di" bpmnElement="Flow_0ov9ue4">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kftxta_di" bpmnElement="Flow_1kftxta">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="752" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

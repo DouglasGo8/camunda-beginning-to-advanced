@@ -123,3 +123,40 @@ curl http://localhost:8080/engine-rest/signal
     }
 }
 ----
+
+== Task Type
+
+. Service Task
+. User Task
+. Script Task - supported languages are Groovy, Javascript, JRuby and Jython
+. Send and Receive Task
+. Business Task
+
+=== External Script
+
+. in folder src/main/resources/scripts/request.groovy
+. in bpmn script task choose external resource and link the folder up above such (scripts/request)
+
+=== Service Tasks
+
+. Service Task is used to invoke services, in camunda this is done by calling Java code or providing a work item for an external worker in async mode
+
+=== Send and Receive Tasks
+
+. Send task is a mainly to send a message with Java code
+. A Receive Task is a wait state in element/activity, waiting for a arrival of certain message
+
+=== Gateways
+
+. Gateways are BPMN flow elements, which are used to control how sequence flows interact as they converge and diverge with a processes, enabling implementation of branching, forking, merging and connection of ways in a business methods, allowing modeling decisions based on data and events as well as fork/join concurrency
+
+- Exclusive Gateway only one patch of execution is possible like (if/else)
+- Inclusive Gateway allow multiple condition follow ahead with the execution
+- Parallel Gateway don't have condition in the sequence and allow the flow get executed
+- Event-Based Gateway the flow will get executed when an event occurs, such a timer, message etc
+
+=== Pool and Lane
+
+- Pool contains flow objects vertically or horizontally
+- Lane helps to organize and categorize activities within a pool
+- Pool Collaboration?

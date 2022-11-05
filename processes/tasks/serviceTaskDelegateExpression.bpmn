@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1g30iey" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="serviceTaskDelegationExpression" name="Service Task Delegation Expression" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0bss2fg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0bss2fg" sourceRef="StartEvent_1" targetRef="logConsole" />
+    <bpmn:serviceTask id="logConsole" name="Log to console" camunda:delegateExpression="${logger}">
+      <bpmn:incoming>Flow_0bss2fg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0mlrff1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1clkehg">
+      <bpmn:incoming>Flow_0bzd7wp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0mlrff1" sourceRef="logConsole" targetRef="approveOrder" />
+    <bpmn:userTask id="approveOrder" name="Approve order">
+      <bpmn:incoming>Flow_0mlrff1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bzd7wp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0bzd7wp" sourceRef="approveOrder" targetRef="Event_1clkehg" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="serviceTaskDelegationExpression">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1h02hr3_di" bpmnElement="logConsole">
+        <dc:Bounds x="270" y="57" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_052lnp1_di" bpmnElement="approveOrder">
+        <dc:Bounds x="460" y="57" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1clkehg_di" bpmnElement="Event_1clkehg">
+        <dc:Bounds x="632" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0bss2fg_di" bpmnElement="Flow_0bss2fg">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="270" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mlrff1_di" bpmnElement="Flow_0mlrff1">
+        <di:waypoint x="370" y="97" />
+        <di:waypoint x="460" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bzd7wp_di" bpmnElement="Flow_0bzd7wp">
+        <di:waypoint x="560" y="97" />
+        <di:waypoint x="632" y="97" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
