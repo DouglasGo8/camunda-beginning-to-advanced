@@ -160,3 +160,7 @@ curl http://localhost:8080/engine-rest/signal
 - Pool contains flow objects vertically or horizontally
 - Lane helps to organize and categorize activities within a pool
 - Pool Collaboration?
+
+=== Subprocess
+
+- Organize the processes to be more readable flows, but generate multiples ids on db
