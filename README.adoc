@@ -164,3 +164,7 @@ curl http://localhost:8080/engine-rest/signal
 === Subprocess
 
 - Organize the processes to be more readable flows, but generate multiples ids on db
+
+=== Error Handling
+
+- Business or Technical Errors
