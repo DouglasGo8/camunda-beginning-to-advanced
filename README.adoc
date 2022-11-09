@@ -190,3 +190,29 @@ curl http://localhost:8080/engine-rest/signal
 - Generic Task forms generic task form will be generated in case of no pre-exists task
 
 === Decision Model and Notation (DMN)
+
+- Specification of popular group OMG
+- Helps to reduce multiple if-else in BPMN
+- Provides tabular way to write business rules
+- Easy for Business Analyst to define business rule
+
+
+.DMN Restful endpoint invocation
+- http://localhost:8080/engine-rest/decision-definition/key/{{dmn_name}}/evaluate
+
+.Request for DMN
+[source,json]
+----
+{
+    "variables": {
+        "provider": {
+            "value": "AWS",
+            "type": "string"
+        },
+        "edition": {
+            "value": "Enterprise",
+            "type": "String"
+        }
+    }
+}
+----
