@@ -24,5 +24,6 @@
 		<module>hello-bpm-camelet</module>
 		<module>order-send-receive-task</module>
 		<module>order-subprocess</module>
-	</modules>
+	  <module>task-forms</module>
+  </modules>
 </project>

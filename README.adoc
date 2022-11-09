@@ -159,7 +159,7 @@ curl http://localhost:8080/engine-rest/signal
 
 - Pool contains flow objects vertically or horizontally
 - Lane helps to organize and categorize activities within a pool
-- Pool Collaboration?
+- Pool Collaboration??(miss a more detailed class)
 
 === Subprocess
 
@@ -168,3 +168,25 @@ curl http://localhost:8080/engine-rest/signal
 === Error Handling
 
 - Business or Technical Errors
+
+=== Service API
+
+- Runtime Service
+- Task Service
+- History Service
+- Repo Service
+
+=== Database in Camunda
+
+- http://localhost:8080/h2/h2[H2 Camunda Link]
+- https://docs.camunda.org/manual/7.15/user-guide/process-engine/database/database-schema/[Database Schema Camunda]
+
+=== Task forms
+
+- Can be used by Start Event and User Task
+- Embedded Task forms is a html-based form
+- Generated Task forms generated from xml metadata
+- External Task forms user is redirected to another application to complete the task
+- Generic Task forms generic task form will be generated in case of no pre-exists task
+
+=== Decision Model and Notation (DMN)
