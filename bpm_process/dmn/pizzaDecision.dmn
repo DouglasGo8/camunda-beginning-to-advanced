@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_06ofhyr" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <decision id="Decision_0pohc9w" name="PizzaDecision">
+    <decisionTable id="DecisionTable_0pstmhz" hitPolicy="FIRST">
+      <input id="Input_1" label="pizzaType">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>pizzaType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1fxke0a" label="topping">
+        <inputExpression id="LiteralExpression_0en1tb8" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0wkg61l" label="cheese">
+        <inputExpression id="LiteralExpression_0vydnh8" typeRef="string">
+          <text>cheese</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="cost" name="cost" typeRef="integer" biodi:width="192" />
+      <rule id="DecisionRule_0d4nkw3">
+        <description>-</description>
+        <inputEntry id="UnaryTests_1vil9cz">
+          <text>"veg''</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_053tzil">
+          <text>"corn"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m9ginw">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y8s77e">
+          <text>11</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nukcir">
+        <description>-</description>
+        <inputEntry id="UnaryTests_0uk7v5s">
+          <text>"nonVeg"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m0etrj">
+          <text>"corn"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17jtsx0">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08flhl6">
+          <text>13</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13g52oa">
+        <description>-</description>
+        <inputEntry id="UnaryTests_0k2rfpq">
+          <text>"veg"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0spcr0u">
+          <text>"corn"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mxiw89">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jzdwye">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c9jhxz">
+        <description>-</description>
+        <inputEntry id="UnaryTests_0xpdrwf">
+          <text>"nonVeg"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r1linb">
+          <text>"corn"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ro1cgu">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ds7gb9">
+          <text>12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mpiysn">
+        <description>-</description>
+        <inputEntry id="UnaryTests_0ay8uth">
+          <text>"nonVeg"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v4vf4z">
+          <text>"corn", "chicken"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z7am5n">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_195k7a0">
+          <text>15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1txcz4b">
+        <description>-</description>
+        <inputEntry id="UnaryTests_15z17yw">
+          <text>"veg"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05yeoo8">
+          <text>"panner"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1chredw">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16olngx">
+          <text>13</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0pohc9w">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

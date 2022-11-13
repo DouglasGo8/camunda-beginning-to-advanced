@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="CloudDecision_" name="CloudDecision" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.4.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <decision id="cloudDecision_dmn" name="CloudDecision" camunda:versionTag="v1">
-    <decisionTable id="DecisionTable_08baa7i">
+    <decisionTable id="DecisionTable_08baa7i" hitPolicy="FIRST">
       <input id="Input_1">
         <inputExpression id="InputExpression_1" typeRef="string">
-          <text>Provider</text>
+          <text>provider</text>
         </inputExpression>
       </input>
       <input id="InputClause_13s0hvi">
         <inputExpression id="LiteralExpression_12n72f6" typeRef="string">
-          <text>Plan</text>
+          <text>plan</text>
         </inputExpression>
       </input>
-      <output id="Output_1" name="Cost" typeRef="integer" />
+      <output id="Output_1" name="cost" typeRef="integer" />
       <rule id="DecisionRule_01bh6c9">
         <description>-</description>
         <inputEntry id="UnaryTests_1x5z19h">
@@ -59,6 +59,18 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_11vlvme">
           <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g3ndck">
+        <description>-</description>
+        <inputEntry id="UnaryTests_1lgvvb4">
+          <text>"Open Stack"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gyjv4w">
+          <text>"Community"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1knjgtf">
+          <text>50</text>
         </outputEntry>
       </rule>
     </decisionTable>

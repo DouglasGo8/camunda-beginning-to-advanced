@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_11ln1xp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_1b6nl0e" isExecutable="true">
+    <bpmn:extensionElements>
+      <camunda:executionListener class="com.udemy.camunda.bpm.service.ApplicationStartListener" event="start" />
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1" name="process started">
+      <bpmn:outgoing>Flow_0d3bjl0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0d3bjl0" sourceRef="StartEvent_1" targetRef="Activity_10bkkx2" />
+    <bpmn:userTask id="Activity_10bkkx2" name="Provide Input" camunda:assignee="demo" camunda:candidateUsers="demo, john">
+      <bpmn:extensionElements>
+        <camunda:taskListener class="com.udemy.camunda.bpm.task.ValidateInputTaskListener" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0d3bjl0</bpmn:incoming>
+      <bpmn:outgoing>Flow_07pe2yg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_07pe2yg" sourceRef="Activity_10bkkx2" targetRef="Activity_1o4ohix" />
+    <bpmn:serviceTask id="Activity_1o4ohix" name="Call service to save data" camunda:delegateExpression="#{dataSaveService}">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.udemy.camunda.bpm.service.DataSaveServiceEndListener" event="end" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_07pe2yg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zvrot9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0zvrot9" sourceRef="Activity_1o4ohix" targetRef="Activity_1podx6d" />
+    <bpmn:userTask id="Activity_1podx6d" name="Watch the result" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:taskListener class="com.udemy.camunda.bpm.task.ValidateInputTaskListener" event="complete" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0zvrot9</bpmn:incoming>
+      <bpmn:outgoing>Flow_12n0n8e</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1msqvpk">
+      <bpmn:incoming>Flow_12n0n8e</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_12n0n8e" sourceRef="Activity_1podx6d" targetRef="Event_1msqvpk" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1b6nl0e">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="142" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ogfltd_di" bpmnElement="Activity_10bkkx2">
+        <dc:Bounds x="330" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ce603h_di" bpmnElement="Activity_1o4ohix">
+        <dc:Bounds x="550" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ua9ca1_di" bpmnElement="Activity_1podx6d">
+        <dc:Bounds x="770" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1msqvpk_di" bpmnElement="Event_1msqvpk">
+        <dc:Bounds x="992" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0d3bjl0_di" bpmnElement="Flow_0d3bjl0">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="330" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07pe2yg_di" bpmnElement="Flow_07pe2yg">
+        <di:waypoint x="430" y="117" />
+        <di:waypoint x="550" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zvrot9_di" bpmnElement="Flow_0zvrot9">
+        <di:waypoint x="650" y="117" />
+        <di:waypoint x="770" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12n0n8e_di" bpmnElement="Flow_12n0n8e">
+        <di:waypoint x="870" y="117" />
+        <di:waypoint x="992" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

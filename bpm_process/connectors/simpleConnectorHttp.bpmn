@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0l7zqwe" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="Process_1dtp1cp" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0qmfta9</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0qmfta9" sourceRef="StartEvent_1" targetRef="Activity_0krkt6w" />
+    <bpmn:userTask id="Activity_0krkt6w" name="Get Ready for REST call" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0qmfta9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y4afqa</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1y4afqa" sourceRef="Activity_0krkt6w" targetRef="Activity_13rfbgc" />
+    <bpmn:serviceTask id="Activity_13rfbgc" name="Call HTTP GET">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">https://reqres.in/api/users?page=2</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:outputParameter name="http_response">
+              <camunda:script scriptFormat="groovy">println response
+return response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1y4afqa</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wsi76y</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1wsi76y" sourceRef="Activity_13rfbgc" targetRef="Activity_1pfhuii" />
+    <bpmn:serviceTask id="Activity_1pfhuii" name="Call HTTP POST">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="groovy">import static org.camunda.spin.Spin.*;
+import org.camunda.spin.json.*;
+
+SpinJsonNode json = JSON("{}");
+json = json.prop("name", name);
+json = json.prop("job", "Consultant");
+String req = json.toString();
+println req;
+return req;</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="header">
+              <camunda:map>
+                <camunda:entry key="content-type">application-json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://reqres.in/api/users</camunda:inputParameter>
+            <camunda:outputParameter name="user_id">
+              <camunda:script scriptFormat="groovy">import static org.camunda.spin.Spin.*
+import org.camunda.spin.json.*
+
+println response
+SpinJsonNode json = JSON(response)
+String id = json.prop("id").stringValue()
+println id
+return id</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wsi76y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1603ptb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1603ptb" sourceRef="Activity_1pfhuii" targetRef="Activity_05pj1np" />
+    <bpmn:endEvent id="Event_0j34vzh">
+      <bpmn:incoming>Flow_089s6jn</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_089s6jn" sourceRef="Activity_05pj1np" targetRef="Event_0j34vzh" />
+    <bpmn:userTask id="Activity_05pj1np" name="Watch it">
+      <bpmn:incoming>Flow_1603ptb</bpmn:incoming>
+      <bpmn:outgoing>Flow_089s6jn</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1dtp1cp">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sbahe4_di" bpmnElement="Activity_0krkt6w">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02g00wu_di" bpmnElement="Activity_13rfbgc">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ybjf86_di" bpmnElement="Activity_1pfhuii">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0j34vzh_di" bpmnElement="Event_0j34vzh">
+        <dc:Bounds x="912" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1chelas_di" bpmnElement="Activity_05pj1np">
+        <dc:Bounds x="750" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0qmfta9_di" bpmnElement="Flow_0qmfta9">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y4afqa_di" bpmnElement="Flow_1y4afqa">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wsi76y_di" bpmnElement="Flow_1wsi76y">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1603ptb_di" bpmnElement="Flow_1603ptb">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="750" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_089s6jn_di" bpmnElement="Flow_089s6jn">
+        <di:waypoint x="850" y="117" />
+        <di:waypoint x="912" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

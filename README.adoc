@@ -11,6 +11,7 @@
 - https://start.camunda.com/[Camunda Spring Initializr]
 - https://docs.camunda.io/docs/components/best-practices/modeling/naming-bpmn-elements/[Naming Conventions]
 - https://demo.bpmn.io/[BPMN IO Web]
+- https://reqres.in/[Request Rest APIs Samples]
 
 == Introduction of BPM
 
@@ -196,7 +197,6 @@ curl http://localhost:8080/engine-rest/signal
 - Provides tabular way to write business rules
 - Easy for Business Analyst to define business rule
 
-
 .DMN Restful endpoint invocation
 - http://localhost:8080/engine-rest/decision-definition/key/{{dmn_name}}/evaluate
 
@@ -216,3 +216,38 @@ curl http://localhost:8080/engine-rest/signal
     }
 }
 ----
+
+==== Hit policy
+
+- Hit policy specifies how many rules of a decision table can be satisfied and which of the satisfied rules are included in the _decision table result_
+
+- The hit policies is Unique, Any and First will always return a maximum of one satisfied rule.
+The hit polices Rule Order and Collect can return multiple satisfied rules
+
+=== JUnit with Camunda Code
+
+- Camunda supports JUnit v3 and v4
+
+[source,java]
+----
+// class level
+class ProcessUnitLevel {
+@Rule
+@ClassRule
+static ProcessEngileRule processEngileRule = TestCoverageProcessEngileRuleBuilder.create().build();
+  @Test
+@Deployment(resources="process.bpmn")
+public void testParsingAndDeployment() {
+
+var runtime = processEngileRule.getRuntimeService();
+var pi = runtime.startProcessInstanceByKey("instance-id");
+
+var taskService = processEngileRule.getTaskService();
+var task = taskService.createTaskQuery().singleResult();
+}
+}
+----
+
+https://reqres.in/api/users
+
+https://reqres.in/api/users?page=2
