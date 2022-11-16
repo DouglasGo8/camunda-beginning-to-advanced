@@ -13,6 +13,12 @@
 - https://demo.bpmn.io/[BPMN IO Web]
 - https://reqres.in/[Request Rest APIs Samples]
 
+== Docker Image Camunda
+[source,bash]
+----
+docker pull camunda/camunda-bpm-platform
+----
+
 == Introduction of BPM
 
 . BPMN stands for Business Process Model and Notation
@@ -34,7 +40,7 @@
 == Camunda Ecosystem
 
 .Camunda Ecosystem
-image::thumbs/camunda_ecosystem.png[]
+image::_thumbs/camunda_ecosystem.png[]
 
 .Camunda Community vs Enterprise Edition
 [cols="1,1,2"]

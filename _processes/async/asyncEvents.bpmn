@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1rseopi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="asyncProcessTask" name="Async Process" isExecutable="true" camunda:versionTag="v1">
+    <bpmn:startEvent id="StartEvent_1" name="process started">
+      <bpmn:outgoing>Flow_0xynj9c</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0xynj9c" sourceRef="StartEvent_1" targetRef="Activity_12413i9" />
+    <bpmn:userTask id="Activity_12413i9" name="Enter Order details" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0xynj9c</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rnv1xw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0rnv1xw" sourceRef="Activity_12413i9" targetRef="Activity_1jdj1p0" />
+    <bpmn:serviceTask id="Activity_1jdj1p0" name="Validate Order" camunda:delegateExpression="#{validateOrder}">
+      <bpmn:incoming>Flow_0rnv1xw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ik978i</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1ik978i" sourceRef="Activity_1jdj1p0" targetRef="Activity_12lrgdx" />
+    <bpmn:serviceTask id="Activity_12lrgdx" name="Check order with Inventory" camunda:asyncBefore="true" camunda:delegateExpression="#{checkOrder}">
+      <bpmn:incoming>Flow_1ik978i</bpmn:incoming>
+      <bpmn:outgoing>Flow_01dxys2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_01dxys2" sourceRef="Activity_12lrgdx" targetRef="Event_1lpsb35" />
+    <bpmn:intermediateCatchEvent id="Event_1lpsb35">
+      <bpmn:incoming>Flow_01dxys2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oxmlak</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_16rrm7w">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_0ash4fm" name="process ended">
+      <bpmn:incoming>Flow_1oxmlak</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1oxmlak" sourceRef="Event_1lpsb35" targetRef="Event_0ash4fm" />
+    <bpmn:textAnnotation id="TextAnnotation_1hm4f4g">
+      <bpmn:text>Enter name, product name and quantity</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1vy9hd5" sourceRef="Activity_12413i9" targetRef="TextAnnotation_1hm4f4g" />
+    <bpmn:textAnnotation id="TextAnnotation_147qqpw">
+      <bpmn:text>Validate with business rules like, order limit etc</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0z4huhu" sourceRef="Activity_1jdj1p0" targetRef="TextAnnotation_147qqpw" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="asyncProcessTask">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="219" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="262" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1i0t88o_di" bpmnElement="Activity_12413i9">
+        <dc:Bounds x="270" y="197" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ok4ouj_di" bpmnElement="Activity_1jdj1p0">
+        <dc:Bounds x="430" y="197" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bdzusv_di" bpmnElement="Activity_12lrgdx">
+        <dc:Bounds x="590" y="197" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12z726r_di" bpmnElement="Event_1lpsb35">
+        <dc:Bounds x="752" y="219" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ash4fm_di" bpmnElement="Event_0ash4fm">
+        <dc:Bounds x="852" y="219" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="834" y="262" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1hm4f4g_di" bpmnElement="TextAnnotation_1hm4f4g">
+        <dc:Bounds x="300" y="110" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_147qqpw_di" bpmnElement="TextAnnotation_147qqpw">
+        <dc:Bounds x="490" y="80" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0xynj9c_di" bpmnElement="Flow_0xynj9c">
+        <di:waypoint x="215" y="237" />
+        <di:waypoint x="270" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rnv1xw_di" bpmnElement="Flow_0rnv1xw">
+        <di:waypoint x="370" y="237" />
+        <di:waypoint x="430" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ik978i_di" bpmnElement="Flow_1ik978i">
+        <di:waypoint x="530" y="237" />
+        <di:waypoint x="590" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01dxys2_di" bpmnElement="Flow_01dxys2">
+        <di:waypoint x="690" y="237" />
+        <di:waypoint x="752" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oxmlak_di" bpmnElement="Flow_1oxmlak">
+        <di:waypoint x="788" y="237" />
+        <di:waypoint x="852" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1vy9hd5_di" bpmnElement="Association_1vy9hd5">
+        <di:waypoint x="331" y="197" />
+        <di:waypoint x="339" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0z4huhu_di" bpmnElement="Association_0z4huhu">
+        <di:waypoint x="497" y="197" />
+        <di:waypoint x="517" y="150" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
