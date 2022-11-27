@@ -1,0 +1,29 @@
+# Test configuration using spring-boot
+
+camunda:
+  bpm:
+    enabled: true
+    job-execution.enabled: false
+    id-generator: simple
+    database:
+      schema-update: true
+    filter:
+      create: all
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: guest
+    password: welcome1
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      driver-class-name: org.postgresql.Driver
+      pool-name: CAMUNDA-HIKARI-POOL
+      idle-timeout: 3000
+      minimum-idle: 30
+      maximum-pool-size: 10
+      connection-timeout: 2000
+      connection-test-query: select 1
+      transaction-isolation: TRANSACTION_READ_COMMITTED

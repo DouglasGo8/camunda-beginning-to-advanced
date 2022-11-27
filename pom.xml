@@ -38,5 +38,6 @@
     <module>rest-wrapper</module>
     <module>jdbc-integration</module>
     <module>async-transactions</module>
+    <module>activemq-integration</module>
   </modules>
 </project>

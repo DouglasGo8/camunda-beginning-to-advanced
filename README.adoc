@@ -19,6 +19,16 @@
 docker pull camunda/camunda-bpm-platform
 ----
 
+== Install Canonical Model
+[source,bash]
+----
+mvn clean -DskipTests compile package
+mvn install:install-file -Dfile=./target/canonical-model-1.0-SNAPSHOT.jar \
+  -DgroupId=com.udemy.camunda.bpm.activemq.integration.canonical.model \
+  -DartifactId=canonical-model -Dversion=1.0-SNAPSHOT -Dpackaging=jar \
+  -DgeneratePom=true
+----
+
 == Introduction of BPM
 
 . BPMN stands for Business Process Model and Notation
@@ -242,7 +252,7 @@ class ProcessUnitLevel {
 @ClassRule
 static ProcessEngileRule processEngileRule = TestCoverageProcessEngileRuleBuilder.create().build();
   @Test
-@Deployment(resources="process.bpmn")
+@Deployment(resources="submitShoppingCart.bpmn")
 public void testParsingAndDeployment() {
 
 var runtime = processEngileRule.getRuntimeService();
